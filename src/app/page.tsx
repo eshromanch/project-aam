@@ -1,4 +1,3 @@
-
 'use client'
 import Image from "next/image";
 import { useState } from "react";
@@ -68,10 +67,78 @@ export default function Home() {
     bkashNumber: "",
   });
   const [submitted, setSubmitted] = useState(false);
+  const [phoneError, setPhoneError] = useState("");
+  const [bkashNumberError, setBkashNumberError] = useState("");
+  const[isLoading, setIsLoading] = useState(false);
+
+  // console.log(DISTRICTS.length)
+  // Phone validation function
+  const validatePhone = (phoneNumber: string): string => {
+    // Remove any spaces or dashes
+    const cleanPhone = phoneNumber.replace(/[\s-]/g, '');
+    
+    // Check if it's exactly 11 digits
+    if (cleanPhone.length !== 11) {
+      return "ফোন নম্বর অবশ্যই ১১ সংখ্যার হতে হবে";
+    }
+    
+    // Check if it contains only numbers
+    if (!/^\d+$/.test(cleanPhone)) {
+      return "ফোন নম্বরে শুধুমাত্র সংখ্যা থাকতে পারবে";
+    }
+    
+    // Check if it starts with valid prefixes
+    const validPrefixes = ['013', '014', '015', '016', '017', '018', '019'];
+    const prefix = cleanPhone.substring(0, 3);
+    
+    if (!validPrefixes.includes(prefix)) {
+      return "ফোন নম্বর অবশ্যই 013, 014, 015, 016, 017, 018, বা 019 দিয়ে শুরু হতে হবে";
+    }
+    
+    return ""; // No error
+  };
+
+  // bKash number validation function (same as phone validation)
+  const validateBkashNumber = (bkashNumber: string): string => {
+    // Remove any spaces or dashes
+    const cleanNumber = bkashNumber.replace(/[\s-]/g, '');
+    
+    // Check if it's exactly 11 digits
+    if (cleanNumber.length !== 11) {
+      return "বিকাশ নম্বর অবশ্যই ১১ সংখ্যার হতে হবে";
+    }
+    
+    // Check if it contains only numbers
+    if (!/^\d+$/.test(cleanNumber)) {
+      return "বিকাশ নম্বরে শুধুমাত্র সংখ্যা থাকতে পারবে";
+    }
+    
+    // Check if it starts with valid prefixes
+    const validPrefixes = ['013', '014', '015', '016', '017', '018', '019'];
+    const prefix = cleanNumber.substring(0, 3);
+    
+    if (!validPrefixes.includes(prefix)) {
+      return "বিকাশ নম্বর অবশ্যই 013, 014, 015, 016, 017, 018, বা 019 দিয়ে শুরু হতে হবে";
+    }
+    
+    return ""; // No error
+  };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setForm({ ...form, [name]: value });
+    
+    // Phone validation on change
+    if (name === 'phone') {
+      const error = validatePhone(value);
+      setPhoneError(error);
+    }
+    
+    // bKash number validation on change
+    if (name === 'bkashNumber') {
+      const error = validateBkashNumber(value);
+      setBkashNumberError(error);
+    }
     
     // Reset courier when district changes
     if (name === 'district') {
@@ -79,13 +146,25 @@ export default function Home() {
     }
   };
 
-  const handlePackChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setForm({ ...form, pack: Number(e.target.value) });
-  };
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    // Final phone validation before submission
+    const phoneValidationError = validatePhone(form.phone);
+    if (phoneValidationError) {
+      setPhoneError(phoneValidationError);
+      return;
+    }
+    
+    // Final bKash number validation before submission
+    const bkashValidationError = validateBkashNumber(form.bkashNumber);
+    if (bkashValidationError) {
+      setBkashNumberError(bkashValidationError);
+      return;
+    }
+    
     setSubmitted(true);
+    setIsLoading(true);
 
     // Prepare data
     const selectedOption = PRODUCT.options.find(opt => opt.value === Number(form.pack));
@@ -100,14 +179,14 @@ export default function Home() {
     
     const orderData = {
       name: form.name,
-      phone: form.phone,
+      phone: form.phone.replace(/[\s-]/g, ''), // Clean phone number
       district: form.district,
       detailedAddress: form.detailedAddress,
       courier: form.district === 'ঢাকা' ? 'Home Delivery' : form.courier,
-      package: selectedOption ? selectedOption.label : "",
+      package: selectedOption ? selectedOption.value : "",
       price: selectedOption ? selectedOption.price : 0,
       bkashTransactionId: form.bkashTransactionId,
-      bkashNumber: form.bkashNumber,
+      bkashNumber: form.bkashNumber.replace(/[\s-]/g, ''), // Clean bKash number
       orderTime: orderTime,
       orderAmount: selectedOption ? selectedOption.price : 0,
     };
@@ -119,30 +198,39 @@ export default function Home() {
       headers: {
         "Content-Type": "application/json",
       },
-    });
+    })
+      .then(res => res.json())
+      .catch(() => {
+        // handle error, show error message, etc.
+        setIsLoading(false);
+      });
+    setIsLoading(false);
   };
 
   const selectedOption = PRODUCT.options.find(opt => opt.value === Number(form.pack));
   const isDhaka = form.district === 'ঢাকা - Dhaka';
+  const handlePackageChange = (value: number) => {
+    setForm({ ...form, pack: value });
+  };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-green-50 to-green-100 flex flex-col items-center py-4 px-2">
+    <div className="min-h-screen bg-green-100 flex flex-col items-center py-4 px-2">
       {/* Header */}
-      <div className="w-full max-w-2xl bg-green-600 rounded-t-2xl shadow-lg p-4 flex flex-col items-center">
+      <div className="w-full max-w-2xl bg-[#ffdf64] rounded-t-2xl shadow-lg p-4 flex flex-col items-center">
         <div className="flex items-center gap-2 mb-2">
           <span className="text-3xl">🥭</span>
-          <h1 className="text-2xl md:text-3xl font-bold text-white">{PRODUCT.name}</h1>
+          <h1 className="text-2xl md:text-3xl font-bold text-green-800">{PRODUCT.name}</h1>
         </div>
-        <p className="text-white text-center font-medium">{PRODUCT.description}</p>
+        <p className="text-green-800 text-center font-medium">{PRODUCT.description}</p>
       </div>
 
       {/* Info Section */}
-      <div className="w-full max-w-2xl bg-white shadow-lg p-4 flex flex-col md:flex-row gap-4 border-b-4 border-green-600">
-        <div className="flex-1 bg-green-50 rounded-lg p-3 flex flex-col items-center">
+      <div className=" w-full max-w-2xl bg-[#fef5d8] shadow-lg p-4 flex flex-col md:flex-row gap-4 border-b-4 border-green-600">
+        <div className="flex-1 bg-white rounded-lg p-3 flex flex-col items-center">
           <div className="font-bold text-green-700 mb-1">বিতরণ স্থান ও তারিখ</div>
           <div className="text-sm text-gray-700">{PRODUCT.distribution}</div>
         </div>
-        <div className="flex-1 bg-green-100 rounded-lg p-3 flex flex-col items-center">
+        <div className="flex-1 bg-white rounded-lg p-3 flex flex-col items-center">
           <div className="font-bold text-green-700 mb-1">যোগাযোগ করুন</div>
           <div className="text-sm text-gray-800 flex flex-col gap-1">
             {PRODUCT.contacts.map((c, i) => (
@@ -153,7 +241,7 @@ export default function Home() {
       </div>
 
       {/* Features */}
-      <div className="w-full max-w-2xl bg-white shadow-lg p-4 flex flex-col gap-2">
+      <div className="w-full max-w-2xl bg-[#fef5d8]  shadow-lg p-4 flex flex-col gap-2">
         {PRODUCT.features.map((f, i) => (
           <div key={i} className="flex items-center gap-2 text-green-800 text-base">
             <span className="text-green-600 text-xl">✔️</span>
@@ -161,7 +249,7 @@ export default function Home() {
           </div>
         ))}
       </div>
-        <div className="w-1/3 flex-1 flex justify-center">
+        <div className="w-full flex-1 flex justify-center">
           <Image src={PRODUCT.image1} alt="আম্রপালি" width={500} height={500} className="w-full h-full rounded-xl border border-green-200 object-cover" />
         </div>
       {/* Images */}
@@ -188,9 +276,9 @@ export default function Home() {
           </button>
         )}
         {showForm && !submitted && (
-          <form className="w-full bg-white rounded-xl shadow-lg p-6 mt-4 space-y-4" onSubmit={handleSubmit}>
+          <form className="w-full bg-[#fef5d8]  rounded-xl shadow-lg p-6 mt-4 space-y-4" onSubmit={handleSubmit}>
             {/* Package Selection */}
-            <div className="flex flex-col gap-2">
+            {/* <div className="flex flex-col gap-2">
               <span className="block text-green-800 font-semibold mb-1">প্যাকেজ নির্বাচন করুন</span>
               {PRODUCT.options.map((opt) => (
                 <label key={opt.value} className="flex items-center gap-2 cursor-pointer">
@@ -205,14 +293,45 @@ export default function Home() {
                   <span className="text-green-800">{opt.label} — {opt.price} টাকা</span>
                 </label>
               ))}
-            </div>
-
+            </div> */}
+ <div>
+                <label className="block text-green-800 font-semibold mb-3">প্যাকেজ নির্বাচন</label>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {PRODUCT.options.map((option) => (
+                    <div
+                      key={option.value}
+                      onClick={() => handlePackageChange(option.value)}
+                      className={`p-4 border-2 rounded-xl cursor-pointer transition-all ${
+                        form.pack === option.value
+                          ? 'border-green-500 bg-green-50'
+                          : 'border-gray-200 hover:border-green-300'
+                      }`}
+                    >
+                      <div className="flex items-center gap-3">
+                        <div className={`w-5 h-5 rounded-full border-2 ${
+                          form.pack === option.value
+                            ? 'border-green-500 bg-green-500'
+                            : 'border-gray-300'
+                        }`}>
+                          {form.pack === option.value && (
+                            <div className="w-full h-full bg-white rounded-full transform scale-50"></div>
+                          )}
+                        </div>
+                        <div>
+                          <div className=" text-green-800">{option.label}</div>
+                          <div className="font-semibold text-green-600">{option.price} টাকা (সকল চার্জ সহ)</div>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
             {/* Name */}
             <div>
               <label className="block text-green-800 font-semibold mb-1" htmlFor="name">নাম</label>
               <input
                 required
-                className="w-full border border-green-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-400"
+                className="text-green-800 w-full border border-green-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-400"
                 type="text"
                 id="name"
                 name="name"
@@ -226,13 +345,23 @@ export default function Home() {
               <label className="block text-green-800 font-semibold mb-1" htmlFor="phone">মোবাইল নম্বর</label>
               <input
                 required
-                className="w-full border border-green-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-400"
+                className={`text-green-800 w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 ${
+                  phoneError ? 'border-red-500 focus:ring-red-400' : 'border-green-300 focus:ring-green-400'
+                }`}
                 type="text"
                 id="phone"
                 name="phone"
                 value={form.phone}
                 onChange={handleChange}
+                placeholder="01XXXXXXXXX"
+                maxLength={11}
               />
+              {phoneError && (
+                <p className="text-red-500 text-sm mt-1">{phoneError}</p>
+              )}
+              <p className="text-gray-500 text-xs mt-1">
+                উদাহরণ: 01712345678 (১১ সংখ্যার, 013-019 দিয়ে শুরু)
+              </p>
             </div>
 
             {/* District */}
@@ -321,14 +450,23 @@ export default function Home() {
                 <label className="block text-green-800 font-semibold mb-1" htmlFor="bkashNumber">বিকাশ নম্বার</label>
                 <input
                   required
-                  className="text-green-800  w-full border border-green-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-400"
+                  className={`text-green-800 w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 ${
+                    bkashNumberError ? 'border-red-500 focus:ring-red-400' : 'border-green-300 focus:ring-green-400'
+                  }`}
                   type="text"
                   id="bkashNumber"
                   name="bkashNumber"
                   value={form.bkashNumber}
                   onChange={handleChange}
-                  placeholder="যে নম্বর থেকে পেমেন্ট করেছেন"
+                  placeholder="01XXXXXXXXX"
+                  maxLength={11}
                 />
+                {bkashNumberError && (
+                  <p className="text-red-500 text-sm mt-1">{bkashNumberError}</p>
+                )}
+                <p className="text-gray-500 text-xs mt-1">
+                  যে বিকাশ নম্বর থেকে পেমেন্ট করেছেন (১১ সংখ্যার, 013-019 দিয়ে শুরু)
+                </p>
               </div>
             </div>
 
@@ -338,14 +476,31 @@ export default function Home() {
               </span>
               <button
                 type="submit"
-                className="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-6 rounded shadow"
+                disabled={phoneError !== "" || bkashNumberError !== ""}
+                className={`font-bold py-2 px-6 rounded shadow ${
+                  phoneError !== "" || bkashNumberError !== ""
+                    ? 'bg-gray-400 text-gray-600 cursor-not-allowed' 
+                    : 'bg-green-600 hover:bg-green-700 text-white'
+                }`}
               >
                 অর্ডার কনফার্ম করুন
               </button>
             </div>
           </form>
         )}
-        {submitted && (
+        {submitted && isLoading && (
+          <div className="w-full bg-green-50 rounded-xl shadow-lg p-6 mt-4 flex flex-col items-center">
+            <div className="flex flex-col items-center">
+              <svg className="animate-spin h-10 w-10 text-green-600 mb-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path>
+              </svg>
+              <h2 className="text-xl font-bold text-green-700 mb-2">অর্ডার প্রসেস হচ্ছে...</h2>
+              <p className="text-green-800">দয়া করে অপেক্ষা করুন, আপনার অর্ডার কনফার্ম করা হচ্ছে।</p>
+            </div>
+          </div>
+        )}
+        {submitted && !isLoading && (
           <div className="w-full bg-green-50 rounded-xl shadow-lg p-6 mt-4 flex flex-col items-center">
             <h2 className="text-2xl font-bold text-green-700 mb-2">ধন্যবাদ!</h2>
             <p className="mb-4 text-green-800">আপনার অর্ডার গ্রহণ করা হয়েছে। শীঘ্রই যোগাযোগ করা হবে।</p>
@@ -363,9 +518,15 @@ export default function Home() {
               </ul>
               <button
                 className="mt-2 text-green-700 underline"
-                onClick={() => { setShowForm(false); setSubmitted(false); setForm({
-                  name: "", phone: "", district: "", detailedAddress: "", courier: "", pack: 12, bkashTransactionId: "", bkashNumber: ""
-                }); }}
+                onClick={() => { 
+                  setShowForm(false); 
+                  setSubmitted(false); 
+                  setPhoneError("");
+                  setBkashNumberError("");
+                  setForm({
+                    name: "", phone: "", district: "", detailedAddress: "", courier: "", pack: 12, bkashTransactionId: "", bkashNumber: ""
+                  }); 
+                }}
               >
                 নতুন অর্ডার করুন
               </button>

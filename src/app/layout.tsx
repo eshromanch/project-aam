@@ -13,8 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Season Scape BD",
-  description: "Season Scape BD",
+  title: "Season Scape Mangoes",
+  description: "Season Scape Mangoes",
 };
 
 export default function RootLayout({

@@ -60,7 +60,7 @@ export default function Home() {
   const [form, setForm] = useState({
     name: "",
     phone: "",
-    district: "dhaka",
+    district: "",
     detailedAddress: "",
     courier: "",
     pack: 12, // default to 12kg
@@ -104,7 +104,7 @@ export default function Home() {
       district: form.district,
       detailedAddress: form.detailedAddress,
       courier: form.district === 'ঢাকা' ? 'Home Delivery' : form.courier,
-      package: selectedOption ? selectedOption.label : "",
+      package: selectedOption ? selectedOption.value : "",
       price: selectedOption ? selectedOption.price : 0,
       bkashTransactionId: form.bkashTransactionId,
       bkashNumber: form.bkashNumber,
@@ -212,7 +212,7 @@ export default function Home() {
               <label className="block text-green-800 font-semibold mb-1" htmlFor="name">নাম</label>
               <input
                 required
-                className="w-full border border-green-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-400"
+                className="text-green-800 w-full border border-green-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-400"
                 type="text"
                 id="name"
                 name="name"
@@ -226,7 +226,7 @@ export default function Home() {
               <label className="block text-green-800 font-semibold mb-1" htmlFor="phone">মোবাইল নম্বর</label>
               <input
                 required
-                className="w-full border border-green-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-400"
+                className="text-green-800 w-full border border-green-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-400"
                 type="text"
                 id="phone"
                 name="phone"
