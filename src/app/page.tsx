@@ -1,13 +1,14 @@
 'use client'
 import Image from "next/image";
 import { useState } from "react";
+import HeroSection from "./component/heroSection";
 
 //Deployment ID
 // AKfycbzttN7NuVhj4gJaOhODX5YZgJpOfvVF4YoGE9XsrlowE4C8iMIspK1YQXIpz7TJqyiO
 // Url:https://script.google.com/macros/s/AKfycbzttN7NuVhj4gJaOhODX5YZgJpOfvVF4YoGE9XsrlowE4C8iMIspK1YQXIpz7TJqyiO/exec
 
 const PRODUCT = {
-  name: "আদের রানি – আম্রপালি!",
+  name: "আমের রাণী - আম্রপালি!", 
   description:
     "যাদের রাজত্বে স্বাগতম! বাদরের রাজত্বের সেরা ফার্মের অনন্যামলী – বাবর এই অনন্যায় আম সরাসরি ঘোড়াইনবগছের বাগান থেকে।",
   options: [
@@ -54,6 +55,8 @@ const COURIERS = [
   "SA Paribahan",
 ];
 
+const TESTIMONIALS = ['/test.jpeg', '/test.jpeg','/test.jpeg']
+
 export default function Home() {
   const [showForm, setShowForm] = useState(false);
   const [form, setForm] = useState({
@@ -70,6 +73,8 @@ export default function Home() {
   const [phoneError, setPhoneError] = useState("");
   const [bkashNumberError, setBkashNumberError] = useState("");
   const[isLoading, setIsLoading] = useState(false);
+  // Fullscreen image modal state
+  const [fullscreenImage, setFullscreenImage] = useState<string | null>(null);
 
   // console.log(DISTRICTS.length)
   // Phone validation function
@@ -214,67 +219,223 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-green-100 flex flex-col items-center py-4 px-2">
+    <div className="min-h-screen bg-green-100 flex flex-col items-center ">
+      <HeroSection/>
       {/* Header */}
-      <div className="w-full max-w-2xl bg-[#ffdf64] rounded-t-2xl shadow-lg p-4 flex flex-col items-center">
+      {/* <div className="w-full max-w-2xl bg-[#ffdf64] rounded-t-2xl shadow-lg p-4 flex flex-col items-center">
         <div className="flex items-center gap-2 mb-2">
           <span className="text-3xl">🥭</span>
           <h1 className="text-2xl md:text-3xl font-bold text-green-800">{PRODUCT.name}</h1>
         </div>
         <p className="text-green-800 text-center font-medium">{PRODUCT.description}</p>
-      </div>
+      </div> */}
 
       {/* Info Section */}
       <div className=" w-full max-w-2xl bg-[#fef5d8] shadow-lg p-4 flex flex-col md:flex-row gap-4 border-b-4 border-green-600">
-        <div className="flex-1 bg-white rounded-lg p-3 flex flex-col items-center">
-          <div className="font-bold text-green-700 mb-1">বিতরণ স্থান ও তারিখ</div>
-          <div className="text-sm text-gray-700">{PRODUCT.distribution}</div>
-        </div>
-        <div className="flex-1 bg-white rounded-lg p-3 flex flex-col items-center">
+       {/* Delivery Process Section */}
+<div className="w-full max-w-2xl bg-[#fef5d8] shadow-lg p-6 rounded-xl my-4">
+  <h2 className="text-2xl font-bold text-green-800 mb-4 text-center">ডেলিভারি প্রক্রিয়া</h2>
+  
+  <div className="space-y-4">
+    {/* Dhaka Delivery */}
+    <div className="flex items-center gap-4 p-4 bg-white rounded-lg border-l-4 border-green-500">
+      <div className="bg-green-100 p-2 rounded-full">
+        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+        </svg>
+      </div>
+      <div>
+        <h3 className="text-xl font-bold text-green-800">ঢাকার ভিতর</h3>
+        <p className="text-green-700">সম্পূর্ণ হোম ডেলিভারি সেবা </p>
+        <p className="text-sm text-gray-600 mt-1">আপনার বাসা/অফিসে সরাসরি পণ্য ডেলিভারি করা হবে</p>
+      </div>
+    </div>
+    
+    {/* Outside Dhaka */}
+    <div className="flex items-center gap-4 p-4 bg-white rounded-lg border-l-4 border-blue-500">
+      <div className="bg-blue-100 p-2 rounded-full">
+        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />
+        </svg>
+      </div>
+      <div>
+        <h3 className="text-xl font-bold text-blue-800">ঢাকার বাইরে</h3>
+        <p className="text-blue-700">নিকটস্থ কুরিয়ার হাব থেকে কালেক্শন</p>
+        <p className="text-sm text-gray-600 mt-1">অর্ডার কনফার্ম করার সময় পছন্দমতোন কুরিয়ার সিলেক্ট করে দিবেন</p>
+      </div>
+    </div>
+  </div>
+</div>
+        {/* <div className="flex-1 bg-white rounded-lg p-3 flex flex-col items-center">
           <div className="font-bold text-green-700 mb-1">যোগাযোগ করুন</div>
           <div className="text-sm text-gray-800 flex flex-col gap-1">
             {PRODUCT.contacts.map((c, i) => (
               <span key={i}>{c}</span>
             ))}
           </div>
+        </div> */}
+      </div>
+      <div className="text-center text-white my-4 py-8 px-4 text-xl font-semibold bg-[#0d5c3c] ">আর নয় বাজারের অপরিপক্ক, কার্বাইডে পাকানো, নিম্ন মানের, ক্ষতিকর আম!</div>
+      {/* Features */}
+ 
+        <div className="w-full flex-1 flex justify-center py-4 px-2">
+          <Image
+            src={PRODUCT.image1}
+            alt="আম্রপালি"
+            width={500}
+            height={500}
+            className="md:w-full xl:w-2/6 h-full rounded-xl border border-green-200 object-cover cursor-pointer"
+            onClick={() => setFullscreenImage(PRODUCT.image1)}
+          />
+        </div>
+      {/* Images */}
+      <div className="w-full max-w-2xl flex flex-row gap-4 my-4 py-4 px-2">
+        <div className="flex-1 flex justify-center">
+          <Image
+            src={PRODUCT.image1}
+            alt="আম্রপালি"
+            width={180}
+            height={120}
+            className="rounded-xl border border-green-200 object-cover cursor-pointer"
+            onClick={() => setFullscreenImage(PRODUCT.image1)}
+          />
+        </div>
+        <div className="flex-1 flex justify-center">
+          <Image
+            src={PRODUCT.image2}
+            alt="আম্রপালি"
+            width={180}
+            height={120}
+            className="rounded-xl border border-green-200 object-cover cursor-pointer"
+            onClick={() => setFullscreenImage(PRODUCT.image2)}
+          />
+        </div>
+        <div className="flex-1 flex justify-center">
+          <Image
+            src={PRODUCT.image3}
+            alt="আম্রপালি"
+            width={180}
+            height={120}
+            className="rounded-xl border border-green-200 object-cover cursor-pointer"
+            onClick={() => setFullscreenImage(PRODUCT.image3)}
+          />
         </div>
       </div>
-
-      {/* Features */}
-      <div className="w-full max-w-2xl bg-[#fef5d8]  shadow-lg p-4 flex flex-col gap-2">
+      <div className="w-full max-w-4xl mx-auto my-8 p-6 bg-[#fef5d8] rounded-xl shadow-md border border-amber-200">
+  <h2 className="text-2xl md:text-3xl font-bold text-center text-amber-800 mb-6">
+    আমাদের থেকে কেনো নিবেন?
+  </h2>
+  
+  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+    {[
+      "দেশের অন্যতম সেরা কোয়ালিটির আম্রপালি",
+      "১০০% ফর্মালিন, কার্বাইড ও অন্যান্য ক্ষতিকর কেমিক্যালমুক্ত",
+      "সরাসরি চাঁপাইনবাবগঞ্জের বাগান থেকে আপনার ঘরে",
+      "অর্ডার করার পর গাছ থেকে পরিপক্ক আম সংগ্রহ করা হয় — কোনো পুরনো বা সংরক্ষিত আম নয়",
+      "প্রতিটি অর্ডারে হাতে বেছে আম প্যাক করা হয়, যেন আপনি পান সেরা আমগুলো",
+      "ঢাকায় হোম ডেলিভারি ও ঢাকার বাইরে পছন্দের কুরিয়ার থেকে নেয়ার সুবিধা",
+      "প্রাকৃতিক স্বাদ ও ঘ্রাণ অক্ষুণ্ন রাখতে বিশেষভাবে প্যাকেজিং করা হয়",
+      "সাধ্যের মধ্যে সেরা আম্রপালি!"
+    ].map((feature, index) => (
+      <div key={index} className="flex items-start gap-3 p-3 bg-white bg-opacity-70 rounded-lg">
+        <div className="mt-1 text-amber-600">
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+            <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+          </svg>
+        </div>
+        <p className="text-amber-900 font-medium">{feature}</p>
+      </div>
+    ))}
+  </div>
+  
+  <div className="mt-6 text-center">
+    {/* <button className="bg-amber-600 hover:bg-amber-700 text-white font-bold py-3 px-6 rounded-full shadow-md transition duration-300">
+      অর্ডার করুন এখনই
+    </button> */}
+      {!showForm && !submitted && (
+          <button
+            className="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-8 rounded-full text-lg shadow-lg transition"
+            onClick={() => setShowForm(true)}
+          >
+            অর্ডার করুন এখনই
+          </button>
+        )}
+  </div>
+</div>
+     {/* <div className="w-full max-w-2xl bg-[#fef5d8]  shadow-lg p-4 flex flex-col gap-2">
         {PRODUCT.features.map((f, i) => (
           <div key={i} className="flex items-center gap-2 text-green-800 text-base">
             <span className="text-green-600 text-xl">✔️</span>
             {f}
           </div>
         ))}
+      </div> */}
+      {/* Testimonial Marquee */}
+      <div className="w-full max-w-2xl overflow-hidden py-4">
+        <h2 className="text-green-800 text-center text-2xl font-bold mb-2">কাস্টমার রিভিও</h2>
+        <div
+          className="flex gap-6 animate-marquee hover:[animation-play-state:paused]"
+          style={{ willChange: 'transform' }}
+        >
+          {TESTIMONIALS.concat(TESTIMONIALS).map((img, idx) => (
+            <div key={idx} className="flex-shrink-0">
+              <Image
+                src={img}
+                alt={`Testimonial ${idx + 1}`}
+                width={500}
+                height={500}
+                className="rounded-xl border border-green-200 object-cover w-full h-32 shadow-md bg-white"
+              />
+            </div>
+          ))}
+        </div>
+        <style jsx global>{`
+          @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+          }
+          .animate-marquee {
+            animation: marquee 8s linear infinite;
+          }
+        `}</style>
       </div>
-        <div className="w-full flex-1 flex justify-center">
-          <Image src={PRODUCT.image1} alt="আম্রপালি" width={500} height={500} className="w-full h-full rounded-xl border border-green-200 object-cover" />
+
+      {/* Fullscreen Image Modal */}
+      {fullscreenImage && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-80"
+          onClick={() => setFullscreenImage(null)}
+        >
+          <div className="relative max-w-full max-h-full flex items-center justify-center">
+            <img
+              src={fullscreenImage}
+              alt="Fullscreen"
+              className="max-w-[90vw] max-h-[90vh] rounded-xl shadow-2xl border-4 border-white"
+              onClick={e => e.stopPropagation()}
+            />
+            <button
+              className="absolute top-2 right-2 bg-white bg-opacity-80 rounded-full p-2 text-black hover:bg-opacity-100 transition"
+              onClick={() => setFullscreenImage(null)}
+              aria-label="Close"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-6 h-6">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+          </div>
         </div>
-      {/* Images */}
-      <div className="w-full max-w-2xl flex flex-row gap-4 my-4">
-        <div className="flex-1 flex justify-center">
-          <Image src={PRODUCT.image1} alt="আম্রপালি" width={180} height={120} className="rounded-xl border border-green-200 object-cover" />
-        </div>
-        <div className="flex-1 flex justify-center">
-          <Image src={PRODUCT.image2} alt="আম্রপালি" width={180} height={120} className="rounded-xl border border-green-200 object-cover" />
-        </div>
-        <div className="flex-1 flex justify-center">
-          <Image src={PRODUCT.image3} alt="আম্রপালি" width={180} height={120} className="rounded-xl border border-green-200 object-cover" />
-        </div>
-      </div>
+      )}
 
       {/* Order Button or Form */}
       <div className="w-full max-w-2xl flex flex-col items-center mb-8">
-        {!showForm && !submitted && (
+        {/* {!showForm && !submitted && (
           <button
             className="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-8 rounded-full text-lg shadow-lg transition"
             onClick={() => setShowForm(true)}
           >
             অর্ডার করুন এখই — সীমিত সময়ের জন্য!
           </button>
-        )}
+        )} */}
         {showForm && !submitted && (
           <form className="w-full bg-[#fef5d8]  rounded-xl shadow-lg p-6 mt-4 space-y-4" onSubmit={handleSubmit}>
             {/* Package Selection */}
@@ -535,7 +696,7 @@ export default function Home() {
         )}
       </div>
 
-      <footer className="mt-10 text-green-400 text-xs">&copy; {new Date().getFullYear()} SeasonscapeBD।</footer>
+      <footer className="mt-10 text-green-400 text-xs">&copy; {new Date().getFullYear()} Seasonscape Mangoes।</footer>
     </div>
   );
 }
