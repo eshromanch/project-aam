@@ -60,7 +60,7 @@ export default function Home() {
   const [form, setForm] = useState({
     name: "",
     phone: "",
-    district: "",
+    district: "dhaka",
     detailedAddress: "",
     courier: "",
     pack: 12, // default to 12kg
