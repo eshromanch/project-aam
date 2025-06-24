@@ -324,8 +324,6 @@ const handleShowPayment = () => {
           />
         </div>
       </div>
-      // Add this section right after your "কাস্টমার রিভিও" section and before the order button
-// Replace the existing simple order button with this enhanced product options showcase
 
 {/* Product Options Showcase Section */}
 <div className="w-full max-w-3xl mx-auto my-6 p-4 bg-gradient-to-br from-amber-50 to-orange-50 rounded-xl shadow-lg border-2 border-amber-200">
@@ -361,17 +359,18 @@ const handleShowPayment = () => {
           <div className="space-y-1 mb-4">
             <div className="flex items-center gap-2 text-green-700 text-sm">
               <span className="text-green-500">✅</span>
-              <span>প্রায় {Math.floor(option.value * 4)}-{Math.ceil(option.value * 5)}টি আম</span>
+              <span>প্রায় {option.value === 12 ? '৪০-৪৫' : '৮৪-৯০'}
+টি আম হবে</span>
             </div>
             <div className="flex items-center gap-2 text-green-700 text-sm">
               <span className="text-green-500">✅</span>
               <span>
-                {option.value === 12 ? '৩-৪ জনের পরিবারের জন্য' : '৫-৮ জনের পরিবারের জন্য'}
+                {option.value === 12 ? '২-৩ সদস্যের পরিবারের জন্য উপযুক্ত' : '৪-৭  সদস্যের পরিবারের জন্য উপযুক্ত'}
               </span>
             </div>
             <div className="flex items-center gap-2 text-green-700 text-sm">
               <span className="text-green-500">✅</span>
-              <span>বিশেষ প্যাকেজিং ও সুরক্ষা</span>
+              <span>ক্যারেটে বিশেষ প্যাকেজিং ও সুরক্ষা</span>
             </div>
           </div>
 
@@ -381,7 +380,7 @@ const handleShowPayment = () => {
               ৳{option.price}
             </div>
             <div className="text-sm text-gray-600">
-              প্রতি কেজি ৳{Math.round(option.price / option.value)}
+              প্রতি কেজি প্রায় ৳{Math.round(option.price / option.value)}
             </div>
             <div className="text-xs text-green-600 font-medium mt-1">
               সকল চার্জ সহ
