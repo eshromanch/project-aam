@@ -36,7 +36,7 @@ const HeroSection = () => {
         </div>
 
         {/* Special Offer Badge */}
-        <div className="bg-red-500 text-white px-6 py-3 rounded-full font-bold text-lg mb-8 animate-pulse shadow-xl">
+        <div className="bg-red-500 text-white px-6 py-3 rounded-full font-bold text-lg mb-8 shadow-xl">
           অর্ডারের শেষ সময় - ২৭ জুন, ২০২৫, শুক্রবার
         </div>
 
