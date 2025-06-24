@@ -415,7 +415,7 @@ const handleShowPayment = () => {
         ))}
       </div> */}
       {/* Testimonial Marquee */}
-      <div className="w-full max-w-2xl overflow-hidden py-4">
+      {/* <div className="w-full max-w-2xl overflow-hidden py-4">
         <h2 className="text-green-800 text-center text-2xl font-bold mb-2">কাস্টমার রিভিও</h2>
         <div
           className="flex gap-6 animate-marquee hover:[animation-play-state:paused]"
@@ -442,7 +442,7 @@ const handleShowPayment = () => {
             animation: marquee 8s linear infinite;
           }
         `}</style>
-      </div>
+      </div> */}
       {/* Fullscreen Image Modal */}
       {fullscreenImage && (
         <div
