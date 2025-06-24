@@ -1,7 +1,7 @@
 'use client'
 import Image from "next/image";
 import { useState } from "react";
-import HeroSection from "./component/heroSection";
+import HeroSection from "../component/heroSection";
 
 //Deployment ID
 // AKfycbzttN7NuVhj4gJaOhODX5YZgJpOfvVF4YoGE9XsrlowE4C8iMIspK1YQXIpz7TJqyiO
@@ -12,8 +12,8 @@ const PRODUCT = {
   description:
     "যাদের রাজত্বে স্বাগতম! বাদরের রাজত্বের সেরা ফার্মের অনন্যামলী – বাবর এই অনন্যায় আম সরাসরি ঘোড়াইনবগছের বাগান থেকে।",
   options: [
-    { label: "১২ কেজি ক্যারেট", value: 12, price: 1450 },
-    { label: "২৪ কেজি ক্যারেট", value: 24, price: 2800 },
+    { label: "১২ কেজি ক্যারেট", value: 12, price: 1300 },
+    { label: "২৪ কেজি ক্যারেট", value: 24, price: 2500 },
   ],
   image1: "/img1.jpg",
   image2: "/img2.jpg",

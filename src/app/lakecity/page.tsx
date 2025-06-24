@@ -18,6 +18,8 @@ const PRODUCT = {
   image1: "/img1.jpg",
   image2: "/img2.jpg",
   image3: "/img3.jpg",
+  image4: "/big.jpg",
+
   features: [
     "দেশের অন্যতম সেরা কোয়ালিটির আম্রপালি",
     "১০০% ফরম্যালিন, কার্বাইড ও কেমিক্যালমুক্ত",
@@ -256,12 +258,12 @@ const handleShowPayment = () => {
  
         <div className="w-full flex-1 flex justify-center py-4 px-2">
           <Image
-            src={PRODUCT.image1}
+            src={PRODUCT.image4}
             alt="আম্রপালি"
             width={500}
             height={500}
             className="md:w-full xl:w-2/6 h-full rounded-xl border border-green-200 object-cover cursor-pointer"
-            onClick={() => setFullscreenImage(PRODUCT.image1)}
+            onClick={() => setFullscreenImage(PRODUCT.image4)}
           />
         </div>
       {/* Images */}
@@ -773,7 +775,7 @@ const handleShowPayment = () => {
         )}
       </div>
 
-      <footer className="mt-10 text-green-400 text-xs">&copy; {new Date().getFullYear()} Seasonscape Mangoes।</footer>
+            <footer className="mt-10 text-green-800 font-bold text-sm">&copy; {new Date().getFullYear()} Seasonscape Mangoes।</footer>
     </div>
   );
 }
