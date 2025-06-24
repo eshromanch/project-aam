@@ -334,7 +334,7 @@ const handleShowPayment = () => {
   </div>
 
   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-    {PRODUCT.options.map((option, index) => (
+    {PRODUCT.options.map((option) => (
       <div 
         key={option.value}
         className="relative bg-white rounded-xl shadow-md border-2 border-amber-200 hover:shadow-lg transition-all duration-300"
