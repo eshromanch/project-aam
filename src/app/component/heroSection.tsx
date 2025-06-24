@@ -3,22 +3,15 @@ import Image from "next/image";
 // Hero Section Component
 const HeroSection = () => {
   const handleWhatsApp = () => {
-    // Replace with your WhatsApp number
-    const phoneNumber = "8801600018656"; // Remove + and spaces
-    const message = "আসসালামু আলাইকুম! আম্রপালি আমের অর্ডার সম্পর্কে জানতে চাই।";
-    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
-    window.open(whatsappUrl, '_blank');
+    window.open('https://wa.me/8801806065001', '_blank');
   };
 
   const handleMessenger = () => {
-    // Replace with your Facebook page username or ID
-    const facebookPage = "yourpagename"; // Replace with actual page name
-    const messengerUrl = `https://m.me/${facebookPage}`;
-    window.open(messengerUrl, '_blank');
+    window.open('https://m.me/seasonscape.bd', '_blank');
   };
 
   const handleCall = () => {
-    window.location.href = "tel:+8801600018656";
+    window.location.href = 'tel:01600018656';
   };
 
   return (
@@ -28,7 +21,7 @@ const HeroSection = () => {
       {/* <div 
         className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1550258987-190a2d41a8ba?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80')] bg-cover bg-center z-0"
       ></div> */}
-      <Image className="absolute inset-0 object-cover w-full h-full" alt="aam" width={500} height={500} src={'/img.jpeg'}></Image>
+      <Image className="absolute inset-0 object-cover w-full h-full" alt="aam" width={500} height={500} src={'/hero.jpg'}></Image>
       <div className="absolute inset-0 bg-black opacity-46 z-0"></div>
       {/* Main Content */}
       <div className="relative z-10 flex flex-col justify-center items-center h-full text-center px-4">

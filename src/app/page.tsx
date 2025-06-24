@@ -15,9 +15,9 @@ const PRODUCT = {
     { label: "১২ কেজি ক্যারেট", value: 12, price: 1450 },
     { label: "২৪ কেজি ক্যারেট", value: 24, price: 2800 },
   ],
-  image1: "/img.jpeg",
-  image2: "/img.jpeg",
-  image3: "/img.jpeg",
+  image1: "/img1.jpg",
+  image2: "/img2.jpg",
+  image3: "/img3.jpg",
   features: [
     "দেশের অন্যতম সেরা কোয়ালিটির আম্রপালি",
     "১০০% ফরম্যালিন, কার্বাইড ও কেমিক্যালমুক্ত",
@@ -398,6 +398,28 @@ export default function Home() {
             animation: marquee 8s linear infinite;
           }
         `}</style>
+      </div>
+
+      {/* Payment Process Guideline Section */}
+      <div className="w-full max-w-2xl mx-auto my-6 p-6 bg-white rounded-xl shadow-md border border-green-200">
+        <h2 className="text-2xl md:text-3xl font-bold text-center text-green-800 mb-4">পেমেন্ট করুন</h2>
+        <p className="text-green-700 text-center mb-4">
+          এই ব্যাচে আপনার অর্ডার কনফার্ম করতে অগ্রীম পেমেন্ট দিয়ে অর্ডার সম্পন্ন করতে হবে।
+        </p>
+        <div className="space-y-3">
+          <div className="flex items-start gap-3">
+            <div className="text-green-600 font-bold">ধাপ - ১ঃ</div>
+            <div className="text-green-900">
+              আপনার বিকাশ নাম্বার থেকে <span className="font-bold text-green-800">01600018656</span> নাম্বারে <span className="font-bold text-green-800">{selectedOption ? selectedOption.price : 0} টাকা</span> Make Payment (পেমেন্ট) করুন।
+            </div>
+          </div>
+          <div className="flex items-start gap-3">
+            <div className="text-green-600 font-bold">ধাপ - ২ঃ</div>
+            <div className="text-green-900">
+              পেমেন্ট সফল হলে ট্র‍্যানজেকশন আইডি (Transaction ID) এবং যেই নাম্বার থেকে পেমেন্ট সম্পন্ন করা হয়েছে সেই নাম্বারটি নিচে প্রদান করুন এবং অর্ডার কনফার্ম করুন
+            </div>
+          </div>
+        </div>
       </div>
 
       {/* Fullscreen Image Modal */}
