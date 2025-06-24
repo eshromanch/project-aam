@@ -53,7 +53,6 @@ const COURIERS = [
   "Karatoa",
   "AJR",
   "Janani",
-  "SA Paribahan",
 ];
 
 // const TESTIMONIALS = ['/test.jpeg', '/test.jpeg','/test.jpeg']
