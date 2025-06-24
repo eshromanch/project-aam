@@ -36,7 +36,7 @@ const ADDRESS_OPTIONS = [
   'মাধবী বিল্ডিংয়ের নিচ থেকে, লেকসিটি কনকর্ড, খিলক্ষেত',
 ];
 
-const TESTIMONIALS: string[] = ['/test.jpeg', '/test.jpeg','/test.jpeg'];
+// const TESTIMONIALS: string[] = ['/test.jpeg', '/test.jpeg','/test.jpeg'];
 
 export default function Home() {
   const [showForm, setShowForm] = useState(false);

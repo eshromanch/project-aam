@@ -56,7 +56,7 @@ const COURIERS = [
   "SA Paribahan",
 ];
 
-const TESTIMONIALS = ['/test.jpeg', '/test.jpeg','/test.jpeg']
+// const TESTIMONIALS = ['/test.jpeg', '/test.jpeg','/test.jpeg']
 
 export default function Home() {
   const [showForm, setShowForm] = useState(false);
