@@ -12,8 +12,8 @@ const PRODUCT = {
   description:
     "যাদের রাজত্বে স্বাগতম! বাদরের রাজত্বের সেরা ফার্মের অনন্যামলী – বাবর এই অনন্যায় আম সরাসরি ঘোড়াইনবগছের বাগান থেকে।",
   options: [
-    { label: "১২ কেজি ক্যারেট", value: 12, price: 1450 },
-    { label: "২৪ কেজি ক্যারেট", value: 24, price: 2800 },
+    { label: "১২ কেজি ক্যারেট", value: 12, price: 1250 },
+    { label: "২৪ কেজি ক্যারেট", value: 24, price: 2400 },
   ],
   image1: "/img1.jpg",
   image2: "/img2.jpg",
@@ -54,7 +54,10 @@ export default function Home() {
   const[isLoading, setIsLoading] = useState(false);
   // Fullscreen image modal state
   const [fullscreenImage, setFullscreenImage] = useState<string | null>(null);
-
+  const [showPayment, setShowPayment] = useState(false);
+const handleShowPayment = () => {
+  setShowPayment(true);
+};
   // Phone validation function
   const validatePhone = (phoneNumber: string): string => {
     // Remove any spaces or dashes
@@ -294,6 +297,72 @@ export default function Home() {
           />
         </div>
       </div>
+      {/* Product Options Showcase Section */}
+<div className="w-full max-w-3xl mx-auto my-6 p-4 bg-gradient-to-br from-amber-50 to-orange-50 rounded-xl shadow-lg border-2 border-amber-200">
+  <div className="text-center mb-6">
+    <h2 className="text-2xl md:text-3xl font-bold text-amber-800 mb-2">
+      🥭 আমাদের প্যাকেজসমূহ
+    </h2>
+  </div>
+
+  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+    {PRODUCT.options.map((option) => (
+      <div 
+        key={option.value}
+        className="relative bg-white rounded-xl shadow-md border-2 border-amber-200 hover:shadow-lg transition-all duration-300"
+      >
+        {/* Popular Badge for 24kg */}
+        {option.value === 24 && (
+          <div className="absolute top-3 right-3 bg-gradient-to-r from-red-500 to-pink-500 text-white px-2 py-1 rounded-full text-xs font-bold shadow-md">
+            জনপ্রিয় ⭐
+          </div>
+        )}
+        
+        <div className="p-4">
+          {/* Package Header */}
+          <div className="text-center mb-3">
+            <div className="inline-flex items-center justify-center w-14 h-14 bg-gradient-to-br from-amber-400 to-orange-500 rounded-full shadow-lg mb-2">
+              <span className="text-2xl">📦</span>
+            </div>
+            <h3 className="text-xl font-bold text-amber-800">{option.label}</h3>
+          </div>
+
+          {/* Features */}
+          <div className="space-y-1 mb-4">
+            <div className="flex items-center gap-2 text-green-700 text-sm">
+              <span className="text-green-500">✅</span>
+              <span>প্রায় {option.value === 12 ? '৪০-৪৫' : '৮৪-৯০'}
+টি আম হবে</span>
+            </div>
+            <div className="flex items-center gap-2 text-green-700 text-sm">
+              <span className="text-green-500">✅</span>
+              <span>
+                {option.value === 12 ? '২-৩ সদস্যের পরিবারের জন্য উপযুক্ত' : '৪-৭  সদস্যের পরিবারের জন্য উপযুক্ত'}
+              </span>
+            </div>
+            <div className="flex items-center gap-2 text-green-700 text-sm">
+              <span className="text-green-500">✅</span>
+              <span>ক্যারেটে বিশেষ প্যাকেজিং ও সুরক্ষা</span>
+            </div>
+          </div>
+
+          {/* Price Section */}
+          <div className="text-center">
+            <div className="text-2xl font-bold text-green-600 mb-1">
+              ৳{option.price}
+            </div>
+            <div className="text-sm text-gray-600">
+              প্রতি কেজি প্রায় ৳{Math.round(option.price / option.value)}
+            </div>
+            <div className="text-xs text-green-600 font-medium mt-1">
+              সকল চার্জ সহ
+            </div>
+          </div>
+        </div>
+      </div>
+    ))}
+  </div>
+</div>
       <div className="w-full max-w-4xl mx-auto my-8 p-6 bg-[#fef5d8] rounded-xl shadow-md border border-amber-200">
   <h2 className="text-2xl md:text-3xl font-bold text-center text-amber-800 mb-6">
     আমাদের থেকে কেনো নিবেন?
@@ -372,29 +441,6 @@ export default function Home() {
           }
         `}</style>
       </div>
-
-      {/* Payment Process Guideline Section */}
-      <div className="w-full max-w-2xl mx-auto my-6 p-6 bg-white rounded-xl shadow-md border border-green-200">
-        <h2 className="text-2xl md:text-3xl font-bold text-center text-green-800 mb-4">পেমেন্ট করুন</h2>
-        <p className="text-green-700 text-center mb-4">
-          এই ব্যাচে আপনার অর্ডার কনফার্ম করতে অগ্রীম পেমেন্ট দিয়ে অর্ডার সম্পন্ন করতে হবে।
-        </p>
-        <div className="space-y-3">
-          <div className="flex items-start gap-3">
-            <div className="text-green-600 font-bold">ধাপ - ১ঃ</div>
-            <div className="text-green-900">
-              আপনার বিকাশ নাম্বার থেকে <span className="font-bold text-green-800">01600018656</span> নাম্বারে <span className="font-bold text-green-800">{selectedOption ? selectedOption.price : 0} টাকা</span> Make Payment (পেমেন্ট) করুন।
-            </div>
-          </div>
-          <div className="flex items-start gap-3">
-            <div className="text-green-600 font-bold">ধাপ - ২ঃ</div>
-            <div className="text-green-900">
-              পেমেন্ট সফল হলে ট্র‍্যানজেকশন আইডি (Transaction ID) এবং যেই নাম্বার থেকে পেমেন্ট সম্পন্ন করা হয়েছে সেই নাম্বারটি নিচে প্রদান করুন এবং অর্ডার কনফার্ম করুন
-            </div>
-          </div>
-        </div>
-      </div>
-
       {/* Fullscreen Image Modal */}
       {fullscreenImage && (
         <div
@@ -586,7 +632,38 @@ export default function Home() {
                 )}
               </div>
             )} */}
+                  {!showPayment&&(
+        <div className="flex justify-between"><span className="font-semibold text-green-800">
+                মোট: {selectedOption ? selectedOption.price : 0} টাকা
+              </span>
+      <button onClick={()=>handleShowPayment()} className="bg-green-800 text-white py-2 px-4 rounded">পেমেন্ট করুন </button>
+              
+              </div>
+      )}
 
+           {/* Payment Process Guideline Section */}
+      {showPayment && (
+        <>
+        <div className="w-full max-w-2xl mx-auto my-6 p-6 bg-white rounded-xl shadow-md border border-green-200">
+        <h2 className="text-2xl md:text-3xl font-bold text-center text-green-800 mb-4">পেমেন্ট করুন</h2>
+        <p className="text-green-700 text-center mb-4">
+          এই ব্যাচে আপনার অর্ডার কনফার্ম করতে অগ্রীম পেমেন্ট দিয়ে অর্ডার সম্পন্ন করতে হবে।
+        </p>
+        <div className="space-y-3">
+          <div className="flex items-start">
+            <div className="w-3/6 text-green-600 font-bold">ধাপ - ১ঃ</div>
+            <div className="text-green-900">
+              আপনার বিকাশ নাম্বার থেকে <span className="font-bold text-green-800">01600018656</span> নাম্বারে <span className="font-bold text-green-800">{selectedOption ? selectedOption.price : 0} টাকা</span> Make Payment (পেমেন্ট) করুন।
+            </div>
+          </div>
+          <div className="flex items-start ">
+            <div className="w-5/6 text-green-600 font-bold">ধাপ - ২ঃ</div>
+            <div className="text-green-900">
+              পেমেন্ট সফল হলে ট্র‍্যানজেকশন আইডি (Transaction ID) এবং যেই নাম্বার থেকে পেমেন্ট সম্পন্ন করা হয়েছে সেই নাম্বারটি নিচে প্রদান করুন এবং অর্ডার কনফার্ম করুন
+            </div>
+          </div>
+        </div>
+      </div>
             {/* Payment Information */}
             <div className="border-t pt-4">
               <h3 className="text-green-800 font-semibold mb-3">পেমেন্ট তথ্য</h3>
@@ -645,6 +722,8 @@ export default function Home() {
                 অর্ডার কনফার্ম করুন
               </button>
             </div>
+        </>
+      )}
           </form>
         )}
         {submitted && isLoading && (
