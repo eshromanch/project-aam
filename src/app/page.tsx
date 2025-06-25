@@ -224,14 +224,45 @@ const handleShowPayment = () => {
   return (
     <div className="min-h-screen bg-green-100 flex flex-col items-center ">
       <HeroSection/>
-      {/* Header */}
-      {/* <div className="w-full max-w-2xl bg-[#ffdf64] rounded-t-2xl shadow-lg p-4 flex flex-col items-center">
-        <div className="flex items-center gap-2 mb-2">
-          <span className="text-3xl">🥭</span>
-          <h1 className="text-2xl md:text-3xl font-bold text-green-800">{PRODUCT.name}</h1>
+{/* <div className="text-center text-white my-4 py-8 px-4 text-xl font-semibold bg-[#0d5c3c] ">আর নয় বাজারের অপরিপক্ক, কার্বাইডে পাকানো, নিম্ন মানের, ক্ষতিকর আম!</div> */}
+
+      {/* Key Information Section */}
+      <div className="w-full max-w-3xl mx-auto my-6 p-6 bg-gradient-to-br from-green-50 to-emerald-50 rounded-xl shadow-lg border-2 border-green-200">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          {/* Product Info */}
+          <div className="bg-white rounded-lg p-4 shadow-md border border-green-100">
+            <div className="flex items-center gap-2 mb-2">
+              <span className="text-2xl">🥭</span>
+              <h3 className="text-lg font-bold text-green-800">আম</h3>
+            </div>
+            <p className="text-green-700 text-lg">
+              চাঁপাইনবাবগঞ্জের আম্রপালি (রসালো, অতিমিষ্ট, আঁশমুক্ত, কেজিতে ৩-৪টা হবে)
+            </p>
+          </div>
+
+          {/* Delivery Date */}
+          <div className="bg-white rounded-lg p-4 shadow-md border border-green-100">
+            <div className="flex items-center gap-2 mb-2">
+              <span className="text-2xl">🚚</span>
+              <h3 className="text-lg font-bold text-green-800">ডেলিভারি তারিখ</h3>
+            </div>
+            <p className="text-green-700 text-lg">
+              ২৯/৩০ জুন, ২০২৫
+            </p>
+          </div>
+
+          {/* Payment Method */}
+          <div className="bg-white rounded-lg p-4 shadow-md border border-green-100">
+            <div className="flex items-center gap-2 mb-2">
+              <span className="text-2xl">💳</span>
+              <h3 className="text-lg font-bold text-green-800">পেমেন্ট ব্যবস্থা</h3>
+            </div>
+            <p className="text-green-700 text-lg">
+              অর্ডার কনফার্ম করতে বিকাশের মাধ্যমে অগ্রীম পেমেন্ট
+            </p>
+          </div>
         </div>
-        <p className="text-green-800 text-center font-medium">{PRODUCT.description}</p>
-      </div> */}
+      </div>
 
       {/* Info Section */}
       <div className=" w-full max-w-2xl bg-[#fef5d8] shadow-lg p-4 flex flex-col md:flex-row gap-4 border-b-4 border-green-600">
@@ -375,15 +406,12 @@ const handleShowPayment = () => {
           </div>
 
           {/* Price Section */}
-          <div className="text-center">
-            <div className="text-2xl font-bold text-green-600 mb-1">
+                  <div className="text-center">
+            <div className="text-2xl font-bold text-green-600 mb-1 flex items-center justify-center gap-1">
               ৳{option.price}
-            </div>
-            <div className="text-sm text-gray-600">
-              প্রতি কেজি প্রায় ৳{Math.round(option.price / option.value)}
-            </div>
-            <div className="text-xs text-green-600 font-medium mt-1">
-              সকল চার্জ সহ
+              <span className="text-sm text-black font-medium mt-1">
+              (সকল চার্জ সহ)
+            </span>
             </div>
           </div>
         </div>
@@ -677,13 +705,13 @@ const handleShowPayment = () => {
           এই ব্যাচে আপনার অর্ডার কনফার্ম করতে অগ্রীম পেমেন্ট দিয়ে অর্ডার সম্পন্ন করতে হবে।
         </p>
         <div className="space-y-3">
-          <div className="flex items-start">
+          <div className="flex items-start gap-3">
             <div className="w-3/6 text-green-600 font-bold">ধাপ - ১ঃ</div>
             <div className="text-green-900">
               আপনার বিকাশ নাম্বার থেকে <span className="font-bold text-green-800">01600018656</span> নাম্বারে <span className="font-bold text-green-800">{selectedOption ? selectedOption.price : 0} টাকা</span> Make Payment (পেমেন্ট) করুন।
             </div>
           </div>
-          <div className="flex items-start ">
+          <div className="flex items-start gap-3">
             <div className="w-5/6 text-green-600 font-bold">ধাপ - ২ঃ</div>
             <div className="text-green-900">
               পেমেন্ট সফল হলে ট্র‍্যানজেকশন আইডি (Transaction ID) এবং যেই নাম্বার থেকে পেমেন্ট সম্পন্ন করা হয়েছে সেই নাম্বারটি নিচে প্রদান করুন এবং অর্ডার কনফার্ম করুন
