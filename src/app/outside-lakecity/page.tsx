@@ -712,13 +712,13 @@ const handleShowPayment = () => {
         </p>
         <div className="space-y-3">
           <div className="flex items-start gap-3">
-            <div className="w-3/6 text-green-600 font-bold">ধাপ - ১ঃ</div>
+            <div className="w-4/6 text-green-600 font-bold">ধাপ - ১ঃ</div>
             <div className="text-green-900">
               আপনার বিকাশ নাম্বার থেকে <span className="font-bold text-green-800">01600018656</span> নাম্বারে <span className="font-bold text-green-800">{selectedOption ? selectedOption.price : 0} টাকা</span> Make Payment (পেমেন্ট) করুন।
             </div>
           </div>
           <div className="flex items-start gap-3">
-            <div className="w-5/6 text-green-600 font-bold">ধাপ - ২ঃ</div>
+            <div className="w-6/6 text-green-600 font-bold">ধাপ - ২ঃ</div>
             <div className="text-green-900">
               পেমেন্ট সফল হলে ট্র‍্যানজেকশন আইডি (Transaction ID) এবং যেই নাম্বার থেকে পেমেন্ট সম্পন্ন করা হয়েছে সেই নাম্বারটি নিচে প্রদান করুন এবং অর্ডার কনফার্ম করুন
             </div>
