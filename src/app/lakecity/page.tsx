@@ -379,7 +379,7 @@ const handleShowPayment = () => {
       ? '৪০-৪৫' 
       : option.value === 24 
         ? '৮৪-৯০' 
-        : '২৫-৩০'
+        : '২২-২৬'
   } টি আম হবে
 </span>
             </div>
@@ -389,10 +389,12 @@ const handleShowPayment = () => {
                 {option.value === 24 ? '৪-৭  সদস্যের পরিবারের জন্য উপযুক্ত':'২-৩ সদস্যের পরিবারের জন্য উপযুক্ত' }
               </span>
             </div>
-            <div className="flex items-center gap-2 text-green-700 text-sm">
+            {option.value !== 6 && (
+              <div className="flex items-center gap-2 text-green-700 text-sm">
               <span className="text-green-500">✅</span>
               <span>ক্যারেটে বিশেষ প্যাকেজিং ও সুরক্ষা</span>
             </div>
+            )}
           </div>
 
           {/* Price Section */}
