@@ -12,6 +12,7 @@ const PRODUCT = {
   description:
     "যাদের রাজত্বে স্বাগতম! বাদরের রাজত্বের সেরা ফার্মের অনন্যামলী – বাবর এই অনন্যায় আম সরাসরি ঘোড়াইনবগছের বাগান থেকে।",
   options: [
+    { label: "৬ কেজি প্যাকেজ", value: 6, price: 630 },
     { label: "১২ কেজি ক্যারেট", value: 12, price: 1250 },
     { label: "২৪ কেজি ক্যারেট", value: 24, price: 2400 },
   ],
@@ -370,13 +371,22 @@ const handleShowPayment = () => {
           <div className="space-y-1 mb-4">
             <div className="flex items-center gap-2 text-green-700 text-sm">
               <span className="text-green-500">✅</span>
-              <span>প্রায় {option.value === 12 ? '৪০-৪৫' : '৮৪-৯০'}
-টি আম হবে</span>
+              {/* <span>প্রায় {option.value === 12 ? '৪০-৪৫' : '৮৪-৯০'}
+টি আম হবে</span> */}
+<span>
+  প্রায় {
+    option.value === 12 
+      ? '৪০-৪৫' 
+      : option.value === 24 
+        ? '৮৪-৯০' 
+        : '২৫-৩০'
+  } টি আম হবে
+</span>
             </div>
             <div className="flex items-center gap-2 text-green-700 text-sm">
               <span className="text-green-500">✅</span>
               <span>
-                {option.value === 12 ? '২-৩ সদস্যের পরিবারের জন্য উপযুক্ত' : '৪-৭  সদস্যের পরিবারের জন্য উপযুক্ত'}
+                {option.value === 24 ? '৪-৭  সদস্যের পরিবারের জন্য উপযুক্ত':'২-৩ সদস্যের পরিবারের জন্য উপযুক্ত' }
               </span>
             </div>
             <div className="flex items-center gap-2 text-green-700 text-sm">
